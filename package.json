@@ -1,7 +1,7 @@
 {
   "name": "event-emitter-mixin",
   "version": "0.1.1",
-  "description": "Event emitter mixin for ES6 classes",
+  "description": "Event emitter mixin using ES7 decorators",
   "author": "Manuel Vila <mvila@3base.com>",
   "license": "MIT",
   "main": "lib/index.js",
