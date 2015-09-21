@@ -4,8 +4,8 @@ Event emitter mixin using ES7 decorators.
 
 Features:
 - Usual `on()`, `off()` and `emit()` methods.
-- Listeners can be defined at any level in the prototype chain. Thus, a listener defined in the prototype of a class prototype is shared by all instances of that class.
-- Listeners can be ES7 `async` functions and it is possible to wait their completion using `await obj.emit('event')`.
+- Listeners can be defined at any level in the prototype chain. Thus, a listener defined in the prototype of a class will be shared by all instances of that class.
+- Listeners can be ES7 `async` functions and it is possible to wait their completion using the `await` keyword.
 
 ## Installation
 
