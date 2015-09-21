@@ -1,0 +1,32 @@
+{
+  "name": "event-emitter-mixin",
+  "version": "0.1.0",
+  "description": "Event emitter mixin for ES6 classes",
+  "author": "Manuel Vila <mvila@3base.com>",
+  "license": "MIT",
+  "main": "lib/index.js",
+  "repository": {
+    "type": "git",
+    "url": "git://github.com/mvila/event-emitter-mixin"
+  },
+  "scripts": {
+    "compile": "babel src --out-dir lib",
+    "prepublish": "npm run compile",
+    "release": "npm run lint && npm run compile && npm test && (git checkout --quiet master && test -z \"$(git status --porcelain)\" && npm version $npm_config_release_type && git push --follow-tags) || echo \"An error occured (unclean repository?)\"",
+    "release-patch": "npm run release --release-type=patch",
+    "release-minor": "npm run release --release-type=minor",
+    "release-major": "npm run release --release-type=major",
+    "lint": "eslint .",
+    "test": "mocha --compilers js:babel/register"
+  },
+  "dependencies": {},
+  "devDependencies": {
+    "babel": "~5.8.20",
+    "babel-eslint": "~4.0.5",
+    "chai": "~2.3.0",
+    "eslint": "~1.1.0",
+    "eslint-config-next": "~0.1.0",
+    "mocha": "~2.2.5",
+    "sleep-promise": "^1.0.0"
+  }
+}
