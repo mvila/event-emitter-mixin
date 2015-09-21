@@ -1,6 +1,6 @@
 {
   "name": "event-emitter-mixin",
-  "version": "0.1.0",
+  "version": "0.1.1",
   "description": "Event emitter mixin for ES6 classes",
   "author": "Manuel Vila <mvila@3base.com>",
   "license": "MIT",
