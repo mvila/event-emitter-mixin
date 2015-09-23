@@ -17,10 +17,12 @@ export class EventEmitterMixin {
   emit(name, ...args) {
     let results = [];
     let emitter = this;
-    while (emitter._callListeners) {
-      results.push.apply(results, emitter._callListeners(name, this, args));
+    do {
+      if (!emitter[name]) break; // OPTIMIZATION
+      let newResults = emitter._callListeners(name, this, args);
+      if (newResults.length) results.push.apply(results, newResults);
       emitter = Object.getPrototypeOf(emitter);
-    }
+    } while (emitter._callListeners);
     return Promise.all(results);
   }
 
