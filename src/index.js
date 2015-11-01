@@ -10,6 +10,10 @@ export class EventEmitterMixin {
   off(name, fn) {
     let listeners = this._getListeners(name);
     if (!listeners) return;
+    if (!fn) {
+      listeners.splice(0, listeners.length);
+      return;
+    }
     let index = listeners.indexOf(fn);
     if (index !== -1) listeners.splice(index, 1);
   }

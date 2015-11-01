@@ -122,5 +122,26 @@ describe('EventEmitter', function() {
       person.emit('event');
       assert.isFalse(hasBeenCalled);
     });
+    it('should remove all listeners in no specific handler specified', function() {
+      @EventEmitter class Person {}
+      let person = new Person();
+      let hasBeenCalled1 = false;
+      let hasBeenCalled2 = false;
+      person.on('event', function() {
+        hasBeenCalled1 = true;
+      });
+      person.on('event', function() {
+        hasBeenCalled2 = true;
+      });
+      person.emit('event');
+      assert.isTrue(hasBeenCalled1);
+      assert.isTrue(hasBeenCalled2);
+      person.off('event');
+      hasBeenCalled1 = false;
+      hasBeenCalled2 = false;
+      person.emit('event');
+      assert.isFalse(hasBeenCalled1);
+      assert.isFalse(hasBeenCalled2);
+    });
   });
 });
