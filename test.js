@@ -2,12 +2,12 @@
 
 import { assert } from 'chai';
 import sleep from 'sleep-promise';
-import EventEmitter, { on } from './src';
+import { EventEmitterMixin, on } from './src';
 
-describe('EventEmitter', function() {
+describe('EventEmitterMixin', function() {
   describe('#on() and #emit()', function() {
     it('should work on an instance', function() {
-      @EventEmitter class Person {}
+      class Person extends EventEmitterMixin() {}
       let person = new Person();
       let hasBeenCalledWith;
       person.on('event', function(value) {
@@ -19,7 +19,7 @@ describe('EventEmitter', function() {
 
     it('should work on a prototype', function() {
       let hasBeenCalledWith;
-      @EventEmitter class Person {
+      class Person extends EventEmitterMixin() {
         @on event(value) {
           hasBeenCalledWith = value;
         }
@@ -31,7 +31,7 @@ describe('EventEmitter', function() {
 
     it('should work on both an instance and a prototype', function() {
       let prototypeHasBeenCalled = false;
-      @EventEmitter class Person {
+      class Person extends EventEmitterMixin() {
         @on event() {
           prototypeHasBeenCalled = true;
         }
@@ -48,7 +48,7 @@ describe('EventEmitter', function() {
 
     it('should work with several listeners on a prototype', function() {
       let hasBeenCalledCounter = 0;
-      @EventEmitter class Person {
+      class Person extends EventEmitterMixin() {
         @on event() {
           hasBeenCalledCounter++;
         }
@@ -63,7 +63,7 @@ describe('EventEmitter', function() {
 
     it('should work with several listeners on different prototypes', function() {
       let hasBeenCalledCounter = 0;
-      @EventEmitter class Human {
+      class Human extends EventEmitterMixin() {
         @on event() {
           hasBeenCalledCounter++;
         }
@@ -79,7 +79,7 @@ describe('EventEmitter', function() {
     });
 
     it('should work with an async listener', async function() {
-      @EventEmitter class Person {}
+      class Person extends EventEmitterMixin() {}
       let person = new Person();
       let hasBeenCalled;
       person.on('event', async function() {
@@ -91,7 +91,7 @@ describe('EventEmitter', function() {
     });
 
     it('should work with several async listeners', async function() {
-      @EventEmitter class Person {}
+      class Person extends EventEmitterMixin() {}
       let person = new Person();
       let hasBeenCalledCounter = 0;
       person.on('event', async function() {
@@ -109,7 +109,7 @@ describe('EventEmitter', function() {
 
   describe('#off()', function() {
     it('should remove a listener', function() {
-      @EventEmitter class Person {}
+      class Person extends EventEmitterMixin() {}
       let person = new Person();
       let hasBeenCalled = false;
       let listener = person.on('event', function() {
@@ -123,7 +123,7 @@ describe('EventEmitter', function() {
       assert.isFalse(hasBeenCalled);
     });
     it('should remove all listeners in no specific handler specified', function() {
-      @EventEmitter class Person {}
+      class Person extends EventEmitterMixin() {}
       let person = new Person();
       let hasBeenCalled1 = false;
       let hasBeenCalled2 = false;

@@ -18,10 +18,9 @@ npm install --save event-emitter-mixin
 ### Basic usage
 
 ```javascript
-import EventEmitter from 'event-emitter-mixin';
+import EventEmitterMixin from 'event-emitter-mixin';
 
-@EventEmitter
-class Person {
+class Person extends EventEmitterMixin() {
   // ...
 }
 
@@ -37,10 +36,9 @@ person.emit('event');
 ### Listener defined on a class prototype
 
 ```javascript
-import EventEmitter, { on } from 'event-emitter-mixin';
+import { EventEmitterMixin, on } from 'event-emitter-mixin';
 
-@EventEmitter
-class Person {
+class Person extends EventEmitterMixin() {
   @on event() {
     // ...
   }
@@ -54,10 +52,9 @@ person.emit('event');
 ### Async listeners
 
 ```javascript
-import EventEmitter, { on } from 'event-emitter-mixin';
+import { EventEmitter, on } from 'event-emitter-mixin';
 
-@EventEmitter
-class Person {
+class Person extends EventEmitterMixin() {
   @on async event() {
     // ...
   }
@@ -71,6 +68,19 @@ person.on('event', async function() {
 
 await person.emit('event');
 ```
+
+### Using both the mixin and a superclass
+
+```javascript
+import EventEmitterMixin from 'event-emitter-mixin';
+
+class Superclass {
+  // ...
+}
+
+class Klass extends EventEmitterMixin(Superclass) {
+  // ...
+}
 
 ## License
 
