@@ -1,8 +1,6 @@
 'use strict';
 
-class ObjectClass {} // Turn around babel bug https://phabricator.babeljs.io/T6964
-
-export function EventEmitterMixin(superclass = ObjectClass) {
+export function EventEmitterMixin(superclass = function() {}) {
   return class extends superclass {
     on(name, fn) {
       let listeners = this._getListeners(name, true);
