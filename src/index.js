@@ -1,6 +1,8 @@
 'use strict';
 
-export function EventEmitterMixin(superclass = Object) {
+class ObjectClass {} // Turn around babel bug https://phabricator.babeljs.io/T6964
+
+export function EventEmitterMixin(superclass = ObjectClass) {
   return class extends superclass {
     on(name, fn) {
       let listeners = this._getListeners(name, true);
@@ -51,11 +53,17 @@ export function EventEmitterMixin(superclass = Object) {
   };
 }
 
-// decorator to easily add listener on class prototypes
+// decorator to add listener on class prototypes
 export function on(target, name, descriptor) {
   let listeners;
   if (target.hasOwnProperty(name)) {
     listeners = target[name];
+    if (typeof listeners === 'function') {
+      // transform-decorators-legacy bug:
+      // the function should not be defined
+      // before the decorator is called
+      listeners = [];
+    }
   } else {
     listeners = [];
   }

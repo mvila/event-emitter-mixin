@@ -46,21 +46,6 @@ describe('EventEmitterMixin', function() {
       assert.isTrue(prototypeHasBeenCalled);
     });
 
-    it('should work with several listeners on a prototype', function() {
-      let hasBeenCalledCounter = 0;
-      class Person extends EventEmitterMixin() {
-        @on event() {
-          hasBeenCalledCounter++;
-        }
-        @on event() {
-          hasBeenCalledCounter++;
-        }
-      }
-      let person = new Person();
-      person.emit('event');
-      assert.equal(hasBeenCalledCounter, 2);
-    });
-
     it('should work with several listeners on different prototypes', function() {
       let hasBeenCalledCounter = 0;
       class Human extends EventEmitterMixin() {
