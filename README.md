@@ -81,6 +81,7 @@ class Superclass {
 class Klass extends EventEmitterMixin(Superclass) {
   // ...
 }
+```
 
 ## License
 
