@@ -1,6 +1,6 @@
 {
   "name": "event-emitter-mixin",
-  "version": "0.3.3",
+  "version": "0.3.4",
   "description": "Event emitter mixin using ES7 decorators",
   "keywords": [
     "event",
