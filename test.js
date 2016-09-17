@@ -107,6 +107,22 @@ describe('EventEmitterMixin', function() {
       person.emit('event');
       assert.isFalse(hasBeenCalled);
     });
+
+    it('should be able to remove a listener inside another listener', function() {
+      class Person extends EventEmitterMixin() {}
+      let person = new Person();
+      let callCount = 0;
+      let listener = person.on('event', function() {
+        callCount++;
+        person.off('event', listener);
+      });
+      person.on('event', function() {
+        callCount++;
+      });
+      person.emit('event');
+      assert.equal(callCount, 2);
+    });
+
     it('should remove all listeners in no specific handler specified', function() {
       class Person extends EventEmitterMixin() {}
       let person = new Person();

@@ -42,6 +42,11 @@ export function EventEmitterMixin(superclass = function() {}) {
     _callListeners(name, thisArg, args) {
       let listeners = this._getListeners(name);
       if (!listeners) return [];
+      if (listeners.length > 1) {
+        // We have to copy the array in case a listener is removed
+        // during the execution of the others:
+        listeners = listeners.slice();
+      }
       let results = [];
       for (let i = 0; i < listeners.length; i++) {
         results.push(listeners[i].apply(thisArg, args));
