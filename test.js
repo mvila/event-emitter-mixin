@@ -8,7 +8,7 @@ describe('EventEmitterMixin', function() {
   describe('#on() and #emit()', function() {
     it('should work on an instance', function() {
       class Person extends EventEmitterMixin() {}
-      let person = new Person();
+      const person = new Person();
       let hasBeenCalledWith;
       person.on('event', function(value) {
         hasBeenCalledWith = value;
@@ -24,7 +24,7 @@ describe('EventEmitterMixin', function() {
           hasBeenCalledWith = value;
         }
       }
-      let person = new Person();
+      const person = new Person();
       person.emit('event', 123);
       assert.equal(hasBeenCalledWith, 123);
     });
@@ -36,7 +36,7 @@ describe('EventEmitterMixin', function() {
           prototypeHasBeenCalled = true;
         }
       }
-      let person = new Person();
+      const person = new Person();
       let instanceHasBeenCalled = false;
       person.on('event', function() {
         instanceHasBeenCalled = true;
@@ -58,14 +58,14 @@ describe('EventEmitterMixin', function() {
           hasBeenCalledCounter++;
         }
       }
-      let person = new Person();
+      const person = new Person();
       person.emit('event');
       assert.equal(hasBeenCalledCounter, 2);
     });
 
     it('should work with an async listener', async function() {
       class Person extends EventEmitterMixin() {}
-      let person = new Person();
+      const person = new Person();
       let hasBeenCalled;
       person.on('event', async function() {
         await sleep(50);
@@ -77,7 +77,7 @@ describe('EventEmitterMixin', function() {
 
     it('should work with several async listeners', async function() {
       class Person extends EventEmitterMixin() {}
-      let person = new Person();
+      const person = new Person();
       let hasBeenCalledCounter = 0;
       person.on('event', async function() {
         await sleep(33);
@@ -95,9 +95,9 @@ describe('EventEmitterMixin', function() {
   describe('#off()', function() {
     it('should remove a listener', function() {
       class Person extends EventEmitterMixin() {}
-      let person = new Person();
+      const person = new Person();
       let hasBeenCalled = false;
-      let listener = person.on('event', function() {
+      const listener = person.on('event', function() {
         hasBeenCalled = true;
       });
       person.emit('event');
@@ -110,9 +110,9 @@ describe('EventEmitterMixin', function() {
 
     it('should be able to remove a listener inside another listener', function() {
       class Person extends EventEmitterMixin() {}
-      let person = new Person();
+      const person = new Person();
       let callCount = 0;
-      let listener = person.on('event', function() {
+      const listener = person.on('event', function() {
         callCount++;
         person.off('event', listener);
       });
@@ -125,7 +125,7 @@ describe('EventEmitterMixin', function() {
 
     it('should remove all listeners in no specific handler specified', function() {
       class Person extends EventEmitterMixin() {}
-      let person = new Person();
+      const person = new Person();
       let hasBeenCalled1 = false;
       let hasBeenCalled2 = false;
       person.on('event', function() {
